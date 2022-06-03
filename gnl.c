@@ -10,10 +10,10 @@ char	*get_next_line(int fd)
 
 	str = malloc(1000000);
 	str2 = str;
-	if (flrd == read(fd, &c, 1) == 0)
+	if ((flrd = read(fd, &c, 1)) == 0)
 		return (NULL);
 	*str++ = c;
-	while (flrd == read(fd, &c, 1) > 0 && c != '\n')
+	while ((flrd = read(fd, &c, 1)) > 0 && c != '\n')
 		*str++ = c;
 	if (c == '\n')
 		*str++ = '\n';
