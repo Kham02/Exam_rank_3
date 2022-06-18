@@ -3,30 +3,19 @@
 
 char	*get_next_line(int fd)
 {
-	int		flrd;
+	int		r, i = 0;
+	char	*res = malloc(100000);
 	char	c;
-	char	*str;
-	char	*str2;
 
-	str = malloc(1000000);
-	str2 = str;
-	if ((flrd = read(fd, &c, 1)) == 0)
-		return (NULL);
-	*str++ = c;
-	while ((flrd = read(fd, &c, 1)) > 0 && c != '\n')
-		*str++ = c;
-	if (c == '\n')
-		*str++ = '\n';
-	*str = '\0';
-	return (str2);
-}
-
-
-char *get_next_line(int fd)
-{
-    char *s = malloc(10000), *c = s;
-    while (read(fd, c, 1) > 0 && *c++ != '\n');
-    return c > s ? (*c = 0, s) : (free(s), NULL);
+	if (fd < 0 || !(r = read(fd, &c, 1)))
+	{
+		free(res);
+		return(NULL);
+	}
+	res[i++] = c;
+	while ((r = read(fd, &c, 1) > 0) && c)
+		res[i++] = c;
+	return (res);
 }
 
 #include <stdio.h>
